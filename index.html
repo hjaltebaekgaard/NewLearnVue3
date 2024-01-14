@@ -17,57 +17,38 @@
     <body class="grid place-items-center">
 
         <div id="app">
-            <section>
-                <h2 class="font-bold mb-2">In Progress</h2>
-                <ul>
-                    <li v-for="assignment in inProgressAssignments" :key="assignment.id">
-                        <label>
-                            {{ assignment.name }}
-                            <input type="checkbox" v-model="assignment.complete" >
-                        </label> 
-                    </li>
-                </ul>
-            
-            </section>
-            <section>
-                <h2 class="font-bold mb-2 mt-8">Completed</h2>
-                <ul>
-                    <li v-for="assignment in completedAssignments" :key="assignment.id">
-                        <label>
-                            {{ assignment.name }}
-                            <input type="checkbox" v-model="assignment.complete">
-                        </label> 
-                    </li>
-                </ul>
-                
-            </section>
-            <pre>
+            <app-button>Crap</app-button>
+            <!-- <pre>
                 {{ assignments }}
-            </pre>
+            </pre> -->
         </div>
         
         <script>
+
             let app = {
-                data() {
-                    return {
-                        assignments: [
-                            {name:"Video 01", complete:false, id:1},
-                            {name:"Video 02", complete:false, id:2},
-                            {name:"Video 03", complete:false, id:3}
-                        ]
+                components: {
+                    "app-button": {
+                        template: `
+                            <button class="bg-gray-200 hover:bg-gray-400 border rounded px-5 py-2 disabled:cursor-not-allowed" :disabled="processing" @click="submit">
+                                <slot />
+                            </button>
+                        `,
+                        data() {
+                            return {
+                                processing: false
+                            }
+                        },
+
+                        methods: {
+                            submit() {
+                                this.processing = true
+                                setTimeout(()=>{
+                                    this.processing = false
+                                }, 1000)
+                            }
+                        }
                     }
-                },
-                methods: {
-                    
-                },
-                computed: {
-                    inProgressAssignments() {
-                        return this.assignments.filter(a => !a.complete)
-                    },
-                    completedAssignments() {
-                        return this.assignments.filter(a => a.complete)
-                    }
-                }
+                }    
             }
 
             Vue.createApp(app).mount("#app")
