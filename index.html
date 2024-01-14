@@ -4,41 +4,68 @@
         <meta charset="UTF-8">
         <title>Document</title>
         <script src="https://unpkg.com/vue@3"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+
         <style>
             html, body {
                 height: 100%
             }
             
-            .button-on-text {
-                color: red
-            }
-
-            .button-off-text {
-                color: green
-            }
         </style>
     </head>
 
-    <body>
+    <body class="grid place-items-center">
+
         <div id="app">
-            <button :class="active ? 'button-on-text' : 'button-off-text'" @click="toggle">Click Me</button>
-
+            <section>
+                <h2 class="font-bold mb-2">In Progress</h2>
+                <ul>
+                    <li v-for="assignment in inProgressAssignments" :key="assignment.id">
+                        <label>
+                            {{ assignment.name }}
+                            <input type="checkbox" v-model="assignment.complete" >
+                        </label> 
+                    </li>
+                </ul>
             
+            </section>
+            <section>
+                <h2 class="font-bold mb-2 mt-8">Completed</h2>
+                <ul>
+                    <li v-for="assignment in completedAssignments" :key="assignment.id">
+                        <label>
+                            {{ assignment.name }}
+                            <input type="checkbox" v-model="assignment.complete">
+                        </label> 
+                    </li>
+                </ul>
+                
+            </section>
+            <pre>
+                {{ assignments }}
+            </pre>
         </div>
-
-        </div>
-
-
+        
         <script>
             let app = {
                 data() {
                     return {
-                        active: false
+                        assignments: [
+                            {name:"Video 01", complete:false, id:1},
+                            {name:"Video 02", complete:false, id:2},
+                            {name:"Video 03", complete:false, id:3}
+                        ]
                     }
                 },
                 methods: {
-                    toggle() {
-                        this.active = !this.active
+                    
+                },
+                computed: {
+                    inProgressAssignments() {
+                        return this.assignments.filter(a => !a.complete)
+                    },
+                    completedAssignments() {
+                        return this.assignments.filter(a => a.complete)
                     }
                 }
             }
