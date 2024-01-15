@@ -7,10 +7,25 @@ export default {
     
     template: `
         <section class="mt-8">
-            <h2 class="font-bold mb-2">{{ title }}</h2>
-            <ul class="border border-gray-600 divide-y divide-gray-600">
+            <h2 class="font-bold mb-2">
+                {{ title }}
+                <span>({{ this.filteredAssignments.length }})</span>
+            </h2>
+
+            <div class="flex gap-2">
+                <button 
+                    @click="currentTag = tag" 
+                    v-for="tag in tags" 
+                    class="border rounded px-1 py-px text-xs"
+                    :class="{
+                        'border-blue-500 text-blue-500': tag === currentTag
+                    }"
+                > {{ tag }} </button>
+            </div>
+
+            <ul class="border border-gray-600 divide-y divide-gray-600 mt-2">
                 <assignment-list-item
-                    v-for="assignment in assignments" 
+                    v-for="assignment in filteredAssignments" 
                     :key="assignment.id"
                     :assignment="assignment"
                 ></assignment-list-item>
@@ -21,7 +36,21 @@ export default {
     props: {
         assignments: Array,
         title: String
+    },
+
+    data() {
+        return {
+            currentTag: "all"
+        }
+    },
+
+    computed: {
+        filteredAssignments() {
+            return this.currentTag === "all" ? this.assignments : this.assignments.filter(a => a.tag === this.currentTag)
+        },
+
+        tags() {
+            return new Set(this.assignments.map(a => a.tag)).add("all")
+        }
     }
 }
-
-// v-for="assignment in assignments" :key="assignment.id"
