@@ -15,8 +15,7 @@ export default {
             
             <assignment-tags 
                 :assignments-tags="this.assignments.map(a => a.tag)"
-                @change="currentTag = $event"
-                :current-tag="currentTag"
+                v-model="currentTag"
                 />
        
             <ul class="border border-gray-600 divide-y divide-gray-600 mt-2">
