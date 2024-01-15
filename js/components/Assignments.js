@@ -8,11 +8,21 @@ export default {
     },
 
     template: `
-        <assignment-list :assignments="inProgressAssignments" title="In Progress"></assignment-list>
+        <section class="flex gap-8">
+            <assignment-list 
+                :assignments="inProgressAssignments" 
+                title="In Progress"
+            >
+                <assignment-create @add="create"></assignment-create>
+            </assignment-list>
 
-        <assignment-list :assignments="completedAssignments" title="Completed"></assignment-list>
+            <assignment-list
+                :assignments="completedAssignments" 
+                title="Completed" 
+                can-toggle
+            ></assignment-list>
 
-        <assignment-create @add="create"></assignment-create>
+        </section>
     `,
 
     data() {
@@ -27,7 +37,8 @@ export default {
             this.assignments.push({
                 name: assignmentName, 
                 complete: false, 
-                id: this.assignments.length + 1
+                id: this.assignments.length + 1,
+                tag: "generel"
             })
 
         }

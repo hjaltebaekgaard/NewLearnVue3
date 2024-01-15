@@ -7,12 +7,16 @@ export default {
     },
     
     template: `
-        <section class="mt-8">
-            <h2 class="font-bold mb-2">
-                {{ title }}
-                <span>({{ this.filteredAssignments.length }})</span>
-            </h2>
-            
+        <section v-show="show" class="w-60">
+            <div class="flex justify-between items-start">
+                <h2 class="font-bold mb-2">
+                    {{ title }}
+                    <span>({{ this.filteredAssignments.length }})</span>
+                </h2>
+
+                <button v-show="canToggle" @click="show = !show">&times</button>
+            </div>
+
             <assignment-tags 
                 :assignments-tags="this.assignments.map(a => a.tag)"
                 v-model="currentTag"
@@ -25,17 +29,24 @@ export default {
                     :assignment="assignment"
                 ></assignment-list-item>
             </ul>
+            
+            <slot />
         </section>
     `,
 
     props: {
         assignments: Array,
-        title: String
+        title: String,
+        canToggle: {
+            type: Boolean,
+            default: false
+        }
     },
 
     data() {
         return {
-            currentTag: "all"
+            currentTag: "all",
+            show: true
         }
     },
 
