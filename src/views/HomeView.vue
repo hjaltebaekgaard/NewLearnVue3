@@ -1,29 +1,20 @@
-<script>
+<script setup>
 import TheWelcome from '../components/TheWelcome.vue'
 import { onMounted, ref } from "vue";
 
-export default {
-  components: {
-    TheWelcome
-  },
 
-  setup() {
-    onMounted(() => {
-      alert("I am mounted")
-    });
+  
+onMounted(() => {
+    alert("I am mounted")
+});
 
-    let message = ref("Hello World!!")
+let message = ref("Hello World!!")
 
-    setTimeout(() => {
-      message.value = "Time's up!"
-    }, 3000)
+setTimeout(() => {
+  message.value = "Time's up!"
+}, 3000)
 
-    return  {
-      message
-    }
-  }
- 
-}
+
 </script>
 
 <template>
