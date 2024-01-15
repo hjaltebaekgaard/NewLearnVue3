@@ -17,13 +17,10 @@ export default {
 
     data() {
         return {
-            assignments: [
-                {name:"Video 01", complete:false, id:1, tag: "science"},
-                {name:"Video 02", complete:false, id:2, tag: "reading"},
-                {name:"Video 03", complete:false, id:3, tag: "reading"}
-            ],
+            assignments: []
         }
     },
+
     methods: {
         create(assignmentName) {
             
@@ -35,6 +32,7 @@ export default {
 
         }
     },
+    
     computed: {
         inProgressAssignments() {
             return this.assignments.filter(a => !a.complete)
@@ -42,5 +40,13 @@ export default {
         completedAssignments() {
             return this.assignments.filter(a => a.complete)
         }
+    },
+
+    created() {
+        fetch("http://localhost:3000/assignments")
+            .then(response => response.json())
+            .then(data => {
+                this.assignments = data
+            })
     }
 }
