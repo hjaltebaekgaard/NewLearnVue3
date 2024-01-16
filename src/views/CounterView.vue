@@ -1,7 +1,15 @@
+<script setup>
+
+import { useCounterStore } from "@/stores/CounterStore.js"
+
+let counter = useCounterStore()
+</script>
+
 <template>
   <div class="counter">
     <h1>Count by clicking a button..</h1>
-    <button @click="state.increment">Clicks:{{ state.count }}</button>
+    <button @click="counter.increment">Clicks:{{ counter.count }}</button>
+    <p>{{ counter.remaining }}</p>
   </div>
 </template>
 
@@ -15,9 +23,3 @@
 }
 </style>
 
-<script setup>
-
-import {ref} from "vue"  
-import { state } from "@/stores/counterStore.js"
-
-</script>
