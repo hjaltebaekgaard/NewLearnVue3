@@ -1,5 +1,8 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import {useFlash} from "@/composables/useFlash";
+
+let {flash} = useFlash()
+/* import TheWelcome from '../components/TheWelcome.vue'
 import { onMounted, ref } from "vue";
 
 
@@ -14,16 +17,15 @@ setTimeout(() => {
   message.value = "Time's up!"
 }, 3000)
 
-
+ */
 </script>
 
 <template>
   <main>
     <TheWelcome />
 
-    <p>{{ message }}</p>
     <p>
-      <input type="text" v-model="message" />
+      <button @click="flash('Test', 'it works!')">Click Me</button>
     </p>
   </main>
 </template>
