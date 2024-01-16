@@ -13,3 +13,32 @@
     </form>
   </main>
 </template>
+<!-- 
+  provide (parent)
+
+  import {provide, ref} from "vue"
+  let name ) ref('John Doe')
+  provide('name', {
+    name,
+    changeName: () => {
+      name.value = "Changed"
+    }
+  })
+
+  inject (child)
+
+  import {inject} from "vue"
+  let {name, changeName} = inject('name')
+
+
+  example2:
+  Parent
+  let props = defineProps({
+    quiz: Object
+  })
+
+  provide('quiz', props.quiz)
+
+  Child
+  let quiz = inject('quiz')
+ -->
