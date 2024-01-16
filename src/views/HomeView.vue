@@ -1,23 +1,20 @@
 <script setup>
-import {useFlash} from "@/composables/useFlash";
+import {useFlash} from "@/composables/useFlash"
+import {useStorage} from "@/composables/useStorage"
+import {ref, watch} from "vue"
 
 let {flash} = useFlash()
-/* import TheWelcome from '../components/TheWelcome.vue'
-import { onMounted, ref } from "vue";
 
+let colour = useStorage('colour')
 
-  
-onMounted(() => {
-    alert("I am mounted")
-});
+let trick = useStorage('trick', 'What do you mean!? An African or a European swallow?')
 
-let message = ref("Hello World!!")
+let objMemberTest = useStorage('obj', {"first": 42, "second": 1})
 
 setTimeout(() => {
-  message.value = "Time's up!"
-}, 3000)
+  objMemberTest.value.second = "Beige.."
+}, 4000)
 
- */
 </script>
 
 <template>
@@ -25,7 +22,10 @@ setTimeout(() => {
     <TheWelcome />
 
     <p>
-      <button @click="flash('Test', 'it works!')">Click Me</button>
+      What is your favority colour!? <input type="text" v-model="colour">
+    </p>
+    <p>
+      What is the capitol of Assyria!? <input type="text" v-model="trick">
     </p>
   </main>
 </template>
