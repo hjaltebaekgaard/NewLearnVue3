@@ -1,6 +1,7 @@
 <script setup>
   import TabbableTextArea from "@/components/TabbableTextArea.vue"
   import { ref } from "vue"
+  import { state } from "@/stores/testStore.js"
 
   let comment = ref('boellehat')
 
@@ -8,6 +9,7 @@
 
 <template>
   <main>
+    <p>{{ state.name }}</p>
     <form>
       <TabbableTextArea v-model="comment" style="width: 100%; height: 300px;" />
     </form>
